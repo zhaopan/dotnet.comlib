@@ -23,14 +23,14 @@ using Newtonsoft.Json.Serialization;
 namespace Comlib
 {
     /// <summary>
-    ///     JSON 序列化
+    /// JSON 序列化
     /// </summary>
     public static class JsonTools
     {
         #region Static Fields
 
         /// <summary>
-        ///     The date time format.
+        /// The date time format.
         /// </summary>
         public static string DateTimeFormat = "yyyy'-'MM'-'dd' 'HH':'mm':'ss";
 
@@ -185,7 +185,7 @@ namespace Comlib
         /// json 序列化设置
         /// </summary>
         /// <returns>
-        ///     The <see cref="JsonSerializerSettings" />.
+        /// The <see cref="JsonSerializerSettings" />.
         /// </returns>
         public static JsonSerializerSettings SerializerSetting()
         {
