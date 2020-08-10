@@ -189,14 +189,16 @@ namespace Comlib
         /// </returns>
         public static JsonSerializerSettings SerializerSetting()
         {
-            var setting = new JsonSerializerSettings {
+            var setting = new JsonSerializerSettings
+            {
                 ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
                 DateFormatHandling = DateFormatHandling.MicrosoftDateFormat,
                 PreserveReferencesHandling = PreserveReferencesHandling.None,
                 NullValueHandling = NullValueHandling.Include,
                 MissingMemberHandling = MissingMemberHandling.Ignore,
 
-                ContractResolver = new DefaultContractResolver {
+                ContractResolver = new DefaultContractResolver
+                {
                     IgnoreSerializableInterface = true,
                     IgnoreSerializableAttribute = true,
                 },
@@ -296,7 +298,8 @@ namespace Comlib
             {
                 T entity = new T();
                 var ps = jObj.Properties().ToList();
-                ps.ForEach(p => {
+                ps.ForEach(p =>
+                {
                     PropertyInfo propertyInfo = entity.GetType().GetRuntimeProperty(p.Name);
                     if (propertyInfo != null && p.Value != null)
                     {
