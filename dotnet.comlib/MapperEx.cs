@@ -36,7 +36,10 @@ namespace Comlib
             where TDestination : class, new()
         {
             if (src == null)
+            {
                 return default;
+            }
+
             var config = new MapperConfiguration(cfg => cfg.CreateMap(src.GetType(), typeof(TDestination)));
             var mapper = config.CreateMapper();
 

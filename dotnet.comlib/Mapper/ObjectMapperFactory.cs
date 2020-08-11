@@ -7,7 +7,7 @@
         }
 
         private static readonly object locker = new object();
-        private static IObjectMapper _objectMapper = null;
+        private static readonly IObjectMapper _objectMapper = null;
 
         public static IObjectMapper ObjectMapper
         {

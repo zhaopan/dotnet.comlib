@@ -134,7 +134,7 @@ namespace Comlib
         /// <returns>返回一个bool类型的值</returns>
         public static bool IsIDCard18(this string str)
         {
-            if (long.TryParse(str.Remove(17), out long n) == false || n < Math.Pow(10, 16) || long.TryParse(str.Replace('x', '0').Replace('X', '0'), out n) == false)
+            if (long.TryParse(str.Remove(17), out var n) == false || n < Math.Pow(10, 16) || long.TryParse(str.Replace('x', '0').Replace('X', '0'), out n) == false)
             {
                 return false;//数字验证
             }
@@ -143,20 +143,20 @@ namespace Comlib
             {
                 return false;//省份验证
             }
-            string birth = str.Substring(6, 8).Insert(6, "-").Insert(4, "-");
-            if (DateTime.TryParse(birth, out DateTime time) == false)
+            var birth = str.Substring(6, 8).Insert(6, "-").Insert(4, "-");
+            if (DateTime.TryParse(birth, out var time) == false)
             {
                 return false;//生日验证
             }
-            string[] arrVarifyCode = ("1,0,x,9,8,7,6,5,4,3,2").Split(',');
-            string[] wi = ("7,9,10,5,8,4,2,1,6,3,7,9,10,5,8,4,2").Split(',');
-            char[] ai = str.Remove(17).ToCharArray();
-            int sum = 0;
-            for (int i = 0; i < 17; i++)
+            var arrVarifyCode = ("1,0,x,9,8,7,6,5,4,3,2").Split(',');
+            var wi = ("7,9,10,5,8,4,2,1,6,3,7,9,10,5,8,4,2").Split(',');
+            var ai = str.Remove(17).ToCharArray();
+            var sum = 0;
+            for (var i = 0; i < 17; i++)
             {
                 sum += int.Parse(wi[i]) * int.Parse(ai[i].ToString());
             }
-            int y = -1;
+            var y = -1;
             Math.DivRem(sum, 11, out y);
             return arrVarifyCode[y] == str.Substring(17, 1).ToLower();
         }
@@ -168,7 +168,7 @@ namespace Comlib
         /// <returns>返回一个bool类型的值</returns>
         public static bool IsIDCard15(this string str)
         {
-            if (long.TryParse(str, out long n) == false || n < Math.Pow(10, 14))
+            if (long.TryParse(str, out var n) == false || n < Math.Pow(10, 14))
             {
                 return false;//数字验证
             }
@@ -177,8 +177,8 @@ namespace Comlib
             {
                 return false;//省份验证
             }
-            string birth = str.Substring(6, 6).Insert(4, "-").Insert(2, "-");
-            return DateTime.TryParse(birth, out DateTime time) != false;
+            var birth = str.Substring(6, 6).Insert(4, "-").Insert(2, "-");
+            return DateTime.TryParse(birth, out var time) != false;
         }
 
         #endregion 验证身份证是否有效
@@ -226,7 +226,7 @@ namespace Comlib
             }
             //列举一些特殊字符串
             const string badChars = "@,*,#,$,!,+,',=,--,%,^,&,?,(,), <,>,[,],{,},/,\\,;,:,\",\"\",delete,update,drop,alert,select";
-            string[] arraryBadChar = badChars.Split(',');
+            var arraryBadChar = badChars.Split(',');
             return arraryBadChar.Any(t => !str.Contains(t));
         }
 
@@ -328,9 +328,9 @@ namespace Comlib
             if (Regex.IsMatch(str, regexDate))
             {
                 //以下各月份日期验证，保证验证的完整性
-                int indexY = -1;
-                int indexM = -1;
-                int indexD = -1;
+                var indexY = -1;
+                var indexM = -1;
+                var indexD = -1;
                 if (-1 != (indexY = str.IndexOf("-", StringComparison.Ordinal)))
                 {
                     indexM = str.IndexOf("-", indexY + 1, StringComparison.Ordinal);
@@ -352,9 +352,9 @@ namespace Comlib
                 {
                     indexD = str.Length + 3;
                 }
-                int iYear = Convert.ToInt32(str.Substring(0, indexY));
-                int iMonth = Convert.ToInt32(str.Substring(indexY + 1, indexM - indexY - 1));
-                int iDate = Convert.ToInt32(str.Substring(indexM + 1, indexD - indexM - 4));
+                var iYear = Convert.ToInt32(str.Substring(0, indexY));
+                var iMonth = Convert.ToInt32(str.Substring(indexY + 1, indexM - indexY - 1));
+                var iDate = Convert.ToInt32(str.Substring(indexM + 1, indexD - indexM - 4));
                 //判断月份日期
                 if ((iMonth < 8 && 1 == iMonth % 2) || (iMonth > 8 && 0 == iMonth % 2))
                 {

@@ -16,6 +16,7 @@ using System.Collections.Generic;
 using System.Dynamic;
 using System.Linq;
 using System.Reflection;
+
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Serialization;
@@ -114,7 +115,10 @@ namespace Comlib
         {
             var settings = SerializerSetting();
             if (!string.IsNullOrEmpty(dateFormatString))
+            {
                 settings.DateFormatString = dateFormatString;
+            }
+
             return JsonConvert.SerializeObject(data, Formatting.Indented, settings);
         }
 
@@ -137,7 +141,7 @@ namespace Comlib
             if (o is string)
             {
                 // 判断是否符合2010-09-02T10:00:00的格式
-                string s = o.ToString();
+                var s = o.ToString();
                 if (s.Length == 19 && s[10] == 'T' && s[4] == '-' && s[13] == ':')
                 {
                     o = Convert.ToDateTime(o);
@@ -189,16 +193,14 @@ namespace Comlib
         /// </returns>
         public static JsonSerializerSettings SerializerSetting()
         {
-            var setting = new JsonSerializerSettings
-            {
+            var setting = new JsonSerializerSettings {
                 ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
                 DateFormatHandling = DateFormatHandling.MicrosoftDateFormat,
                 PreserveReferencesHandling = PreserveReferencesHandling.None,
                 NullValueHandling = NullValueHandling.Include,
                 MissingMemberHandling = MissingMemberHandling.Ignore,
 
-                ContractResolver = new DefaultContractResolver
-                {
+                ContractResolver = new DefaultContractResolver {
                     IgnoreSerializableInterface = true,
                     IgnoreSerializableAttribute = true,
                 },
@@ -296,11 +298,10 @@ namespace Comlib
             }
             else
             {
-                T entity = new T();
+                var entity = new T();
                 var ps = jObj.Properties().ToList();
-                ps.ForEach(p =>
-                {
-                    PropertyInfo propertyInfo = entity.GetType().GetRuntimeProperty(p.Name);
+                ps.ForEach(p => {
+                    var propertyInfo = entity.GetType().GetRuntimeProperty(p.Name);
                     if (propertyInfo != null && p.Value != null)
                     {
                         propertyInfo.SetValue(entity, ChangeType(p.Value, propertyInfo.PropertyType), null);
@@ -342,7 +343,7 @@ namespace Comlib
         {
             if (jObj != null)
             {
-                for (int i = 0; i < propertyNames.Length; i++)
+                for (var i = 0; i < propertyNames.Length; i++)
                 {
                     jObj.Remove(propertyNames[i]);
                 }
@@ -361,7 +362,7 @@ namespace Comlib
                 if (propertyNames.Length > 0)
                 {
                     var ps = jObj.Properties().ToList();
-                    for (int i = 0; i < ps.Count; i++)
+                    for (var i = 0; i < ps.Count; i++)
                     {
                         if (!propertyNames.Contains(ps[i].Name))
                         {
@@ -405,7 +406,7 @@ namespace Comlib
                     if (ps.FirstOrDefault(i => i.Name == kv.Value) == null
                         && ps.FirstOrDefault(i => i.Name == kv.Key) != null)
                     {
-                        JToken v = jObj.GetValue(kv.Key);
+                        var v = jObj.GetValue(kv.Key);
                         jObj.Add(kv.Value, v);
                         if (!keepOld)
                         {

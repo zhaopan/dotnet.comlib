@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+
 using AutoMapper;
 
 namespace Comlib.Mapper
@@ -10,7 +11,11 @@ namespace Comlib.Mapper
             where TDestination : class
             where TSource : class
         {
-            if (source == null) throw new ArgumentNullException();
+            if (source == null)
+            {
+                throw new ArgumentNullException();
+            }
+
             var config = new MapperConfiguration(cfg => cfg.CreateMap<TSource, TDestination>());
             var mapper = config.CreateMapper();
             return mapper.Map<TDestination>(source);
@@ -20,7 +25,11 @@ namespace Comlib.Mapper
             where TDestination : class
             where TSource : class
         {
-            if (source == null) throw new ArgumentNullException();
+            if (source == null)
+            {
+                throw new ArgumentNullException();
+            }
+
             var config = new MapperConfiguration(cfg => cfg.CreateMap<TSource, TDestination>());
             var mapper = config.CreateMapper();
             return mapper.Map<List<TDestination>>(source);
