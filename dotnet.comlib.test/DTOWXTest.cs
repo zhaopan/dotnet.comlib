@@ -10,15 +10,37 @@
  *
  */
 
-using System;
-using System.Collections.Generic;
-using System.Text;
-
 namespace dotnet.comlib.test
 {
-    public class DTOWXTest
+    public class DTOWXTest : DTOShopDiyBase
     {
+        public string NameEx { get; set; }
+        public string CodeEx { get; set; }
+    }
+
+    /// <summary>
+    /// 基础类
+    /// </summary>
+    public abstract class DTOShopDiyBase
+    {
+        /// <summary>
+        /// Id标识
+        /// </summary>
+        public int Id { get; set; }
+
+        /// <summary>
+        /// 名称
+        /// </summary>
         public string Name { get; set; }
-        public string Code { get; set; }
+
+        /// <summary>
+        /// 数据属性
+        /// </summary>
+        public string DataId { get; set; }
+
+        /// <summary>
+        /// <see cref="EShopDiyDocumentType"/>
+        /// </summary>
+        public int DataType { get; set; }
     }
 }

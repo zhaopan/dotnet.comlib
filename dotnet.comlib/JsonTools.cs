@@ -447,7 +447,7 @@ namespace Comlib
         /// <summary>
         /// 对象序列化
         /// </summary>
-        public static string ToJson(this object obj, Formatting jsonFormatting = Formatting.Indented, string dateFormat = "yyyy-MM-dd HH:mm:ss")
+        public static string ToJson(this object obj, Formatting jsonFormatting = Formatting.None, string dateFormat = "yyyy-MM-dd HH:mm:ss")
         {
             var setting = SerializerSetting();
             setting.DateFormatString = dateFormat;
