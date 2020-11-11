@@ -26,10 +26,12 @@ jobs:
 #      run: dotnet TagToVersion -t ${{github.ref}}
 
     - name: Install dependencies
-      run: dotnet restore
+      run: |
+        dotnet restore
 
-    - name: Build
-      run: dotnet build --configuration Release
+#    - name: Build
+#      run: |
+#        dotnet build --configuration Release
 
 #    - name: Install Nuget
 #      run: |
@@ -47,4 +49,4 @@ jobs:
 
     - name: Push generated package to GitHub registry
       run: |
-        dotnet nuget push "dotnet.comlib/dotnet.comlib/bin/Release/*.nupkg" --source "github" --skip-duplicate
+        dotnet nuget push "*.nupkg" --source "github" --skip-duplicate
