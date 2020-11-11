@@ -28,4 +28,4 @@ jobs:
         nuget sources Add -Name github -Source https://nuget.pkg.github.com/zhaopan/index.json -Username zhaopan -Password ${{secrets.HUB_NUGET_TOKEN}}
     - name: Publish Nuget
       run: |
-        nuget push ./bin/Release/*.nupkg --source github -SkipDuplicate  
+        nuget push ./bin/Release/*.nupkg -Source github -SkipDuplicate  
