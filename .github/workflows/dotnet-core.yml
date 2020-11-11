@@ -47,4 +47,4 @@ jobs:
 
     - name: Push generated package to GitHub registry
       run: |
-        dotnet nuget push "dotnet.comlib/bin/Release/*.nupkg" --source "github" --skip-duplicate
+        dotnet nuget push "dotnet.comlib/dotnet.comlib/bin/Release/*.nupkg" --source "github" --skip-duplicate
