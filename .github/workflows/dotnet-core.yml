@@ -43,9 +43,9 @@ jobs:
       run: |
         dotnet test --no-restore --verbosity normal
 
-    - name: Add private GitHub registry to NuGet
-      run: |
-        dotnet nuget add source https://nuget.pkg.github.com/zhaopan/index.json -n github -u zhaopan -p ${{secrets.HUB_NUGET_TOKEN}}
+#    - name: Add private GitHub registry to NuGet
+#      run: |
+#        dotnet nuget add source https://nuget.pkg.github.com/zhaopan/index.json -n github -u zhaopan -p ${{secrets.HUB_NUGET_TOKEN}}
 
     - name: Pack nuget
       run: |
@@ -53,4 +53,5 @@ jobs:
 
     - name: Push generated package to GitHub registry
       run: |
-        dotnet nuget push nupkgs\*.nupkg --source "github"
+        nuget push nupkgs\*.nupkg --source https://api.nuget.org/v3/index.json --skip-duplicate -k ${{secrets.NUGET_API_KEY}} --no-symbols
+##        dotnet nuget push nupkgs\*.nupkg --source "github"
