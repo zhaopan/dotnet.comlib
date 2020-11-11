@@ -25,19 +25,23 @@ jobs:
 #    - name: Set tag to version
 #      run: dotnet TagToVersion -t ${{github.ref}}
 
-    - name: Install dependencies
-      run: |
-        dotnet restore
-
-#    - name: Build
-#      run: |
-#        dotnet build --configuration Release
-
 #    - name: Install Nuget
 #      run: |
 #        $sourceNugetExe = "https://dist.nuget.org/win-x86-commandline/latest/nuget.exe"
 #        $targetNugetExe = "nuget.exe"
 #        Invoke-WebRequest $sourceNugetExe -OutFile $targetNugetExe
+
+    - name: Install dependencies
+      run: |
+        dotnet restore
+
+    - name: Build
+      run: |
+        dotnet build --configuration Release
+
+    - name: Test
+      run: |
+        dotnet test --no-restore --verbosity normal
 
     - name: Add private GitHub registry to NuGet
       run: |
@@ -49,4 +53,4 @@ jobs:
 
     - name: Push generated package to GitHub registry
       run: |
-        dotnet nuget push "nupkgs/*.nupkg" --source "github" --skip-duplicate
+        dotnet nuget push nupkgs/*.nupkg --source "github" --skip-duplicate
