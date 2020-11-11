@@ -25,7 +25,7 @@ jobs:
       uses: nuget/setup-nuget@v1
     - name: Add github repositories
       run: |
-        nuget sources add https://nuget.pkg.github.com/zhaopan/index.json -name github -Username zhaopan -Password ${{secrets.HUB_NUGET_TOKEN}}
+        nuget sources Add -Name github -Source https://nuget.pkg.github.com/zhaopan/index.json -Username zhaopan -Password ${{secrets.HUB_NUGET_TOKEN}}
     - name: Publish Nuget
       run: |
         nuget push ./bin/Release/*.nupkg --source github -SkipDuplicate
