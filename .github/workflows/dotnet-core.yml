@@ -20,14 +20,12 @@ jobs:
     - name: Install dependencies
       run: dotnet restore
     - name: Build
-      run: dotnet build --configuration Release --no-restore
-    - name: Test
-      run: dotnet test --no-restore --verbosity normal
+      run: dotnet build --configuration Release --no-restore    
     - name: Install Muget
       uses: nuget/setup-nuget@v1
     - name: Add github repositories
       run: |
-        nuget sources add https://nuget.pkg.github.com/zhaopan/index.json -n github -u zhaopan -p ${{secrets.HUB_NUGET_TOKEN}}
+        nuget sources add https://nuget.pkg.github.com/zhaopan/index.json -name github -Username zhaopan -Password ${{secrets.HUB_NUGET_TOKEN}}
     - name: Publish Nuget
       run: |
         nuget push ./bin/Release/*.nupkg --source github -SkipDuplicate
