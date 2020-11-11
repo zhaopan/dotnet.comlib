@@ -53,5 +53,5 @@ jobs:
 
     - name: Push generated package to GitHub registry
       run: |
-        nuget push nupkgs\*.nupkg -s https://api.nuget.org/v3/index.json --skip-duplicate -k ${{secrets.NUGET_API_KEY}} --no-symbols
+        nuget push nupkgs\*.nupkg -Source https://api.nuget.org/v3/index.json -ApiKey ${{secrets.NUGET_API_KEY}} --no-symbols --skip-duplicate
 ##        dotnet nuget push nupkgs\*.nupkg --source "github"
