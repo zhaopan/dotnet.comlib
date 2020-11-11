@@ -45,8 +45,8 @@ jobs:
 
     - name: Pack nuget
       run: |
-        dotnet pack --configuration Release
+        dotnet pack --configuration Release --output nupkgs
 
-    - name: Push generated package to GitHub registry
-      run: |
-        dotnet nuget push "*.nupkg" --source "github" --skip-duplicate
+#    - name: Push generated package to GitHub registry
+#      run: |
+#        dotnet nuget push "nupkgs/*.nupkg" --source "github" --skip-duplicate
