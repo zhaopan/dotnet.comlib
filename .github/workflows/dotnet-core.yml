@@ -41,6 +41,10 @@ jobs:
       run: |
         dotnet nuget add source https://nuget.pkg.github.com/ORGANIZATION_NAME/index.json -n github -u ORGANIZATION_NAME -p ${{secrets.HUB_NUGET_TOKEN}}
 
+    - name: Pack nuget
+      run: |
+        dotnet pack --configuration Release
+
     - name: Push generated package to GitHub registry
       run: |
         dotnet nuget push "dotnet.comlib/bin/Release/*.nupkg" --source "github" --skip-duplicate
