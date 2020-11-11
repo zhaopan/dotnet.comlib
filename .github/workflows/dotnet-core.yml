@@ -12,24 +12,36 @@ jobs:
     runs-on: windows-latest
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v1
+    
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 3.1.301
+    
+    - name: Install tool
+      run: dotnet tool install -g dotnetCampus.TagToVersion
+
+    - name: Set tag to version
+      run: dotnet TagToVersion -t ${{ github.ref }}  
+          
     - name: Install dependencies
       run: dotnet restore
+    
     - name: Build
-      run: dotnet build --configuration Release --no-restore
+      run: dotnet build --configuration Release
+    
     - name: Install Nuget
       run: |
         $sourceNugetExe = "https://dist.nuget.org/win-x86-commandline/latest/nuget.exe"
         $targetNugetExe = "nuget.exe"
         Invoke-WebRequest $sourceNugetExe -OutFile $targetNugetExe
-    - name: Add github repositories
+    
+    - name: Add private GitHub registry to NuGet
       run: |
         .\nuget sources add -name github -Source https://nuget.pkg.github.com/ORGANIZATION_NAME/index.json -Username ORGANIZATION_NAME -Password ${{secrets.HUB_NUGET_TOKEN}}
-    - name: Publish Nuget
+    
+    - name: Push generated package to GitHub registry
       run: |
         .\nuget push .\bin\release\*.nupkg -Source github -SkipDuplicate
         .\nuget push .\bin\release\*.nupkg -Source https://api.nuget.org/v3/index.json -SkipDuplicate -ApiKey ${{secrets.NUGET_API_KEY}} -NoSymbols 
