@@ -24,3 +24,4 @@ TestResults
 # NuGet Packages Directory
 packages
 nupkgs
+actions-runner
