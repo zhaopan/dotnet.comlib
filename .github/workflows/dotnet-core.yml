@@ -47,9 +47,9 @@ jobs:
       run: |
         .\nuget sources add -name github -Source https://nuget.pkg.github.com/ORGANIZATION_NAME/index.json -Username ORGANIZATION_NAME -Password ${{ secrets.GH_TOKEN }}
 
-    - name: Pack nuget
-      run: |
-        dotnet pack --configuration Release --output nupkgs
+#    - name: Pack nuget
+#      run: |
+#        dotnet pack --configuration Release --output nupkgs
 
     - name: Push generated package to GitHub registry
       run: |
