@@ -45,7 +45,7 @@ jobs:
 
     - name: Pack nuget
       run: |
-        nuget pack --configuration Release --output nupkgs
+        nuget pack -Properties Configuration=Release --OutputDirectory nupkgs
 
     - name: Push generated package to GitHub registry
       run: |
