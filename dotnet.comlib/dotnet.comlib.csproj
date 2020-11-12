@@ -4,7 +4,7 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <AssemblyName>dotnet.comlib</AssemblyName>
     <RootNamespace>Comlib</RootNamespace>
-    <Version>2.1.0</Version>
+    <Version>0.0.1</Version>
     <RepositoryUrl>https://github.com/zhaopan/dotnet.comlib.git</RepositoryUrl>
     <PackageProjectUrl>https://github.com/zhaopan/dotnet.comlib</PackageProjectUrl>
   </PropertyGroup>
