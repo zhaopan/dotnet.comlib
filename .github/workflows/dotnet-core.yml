@@ -9,7 +9,7 @@ on:
 jobs:
   build:
 
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v1
@@ -25,15 +25,15 @@ jobs:
 #    - name: Set tag to version
 #      run: dotnet TagToVersion -t ${{github.ref}}
 
-    - name: Install Nuget
-      run: |
-        $sourceNugetExe = "https://dist.nuget.org/win-x86-commandline/latest/nuget.exe"
-        $targetNugetExe = "nuget.exe"
-        Invoke-WebRequest $sourceNugetExe -OutFile $targetNugetExe
+#    - name: Install Nuget
+#      run: |
+#        $sourceNugetExe = "https://dist.nuget.org/win-x86-commandline/latest/nuget.exe"
+#        $targetNugetExe = "nuget.exe"
+#        Invoke-WebRequest $sourceNugetExe -OutFile $targetNugetExe
 
     - name: Add private GitHub registry to NuGet
       run: |
-        .\nuget sources add -name github -Source https://nuget.pkg.github.com/zhaopan/index.json -Username zhaopan -Password ${{secrets.GH_TOKEN}}
+        dotnet nuget add source https://nuget.pkg.github.com/zhaopan/index.json -n github -u zhaopan -p ${{secrets.GH_TOKEN}}
 
     - name: Install dependencies
       run: |
@@ -49,4 +49,4 @@ jobs:
 
     - name: Push generated package to GitHub registry
       run: |
-        .\nuget push nupkgs\*.nupkg -Source github -SkipDuplicate
+        dotnet nuget push nupkgs\*.nupkg --source github --skip-duplicate
